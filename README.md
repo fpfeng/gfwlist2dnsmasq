@@ -1,68 +1,15 @@
-gfwlist2dnsmasq
-=================
-Intro
------
-Just another script to auto-generate dnsmasq ipset rules using gfwlist
+#here goes another gfwlist2dnsmasq script
 
-__Notification: Need python2, do not use python3__
+##常用
+举例，ipset名称为`gfw`，地址`127.0.0.1:1053`，输出文件`gfw_ipset.conf`                       
+`gfwlist2dnsmasq.py -i gfw -d 127.0.0.1 -p 1053 -o gfw_ipset.conf`
 
-GFWList is composed by regular expressions, but dnsmasq rules is formed by domain names. So the conversion from GFWList to dnsmasq rule list is not a equivalent conversion. You might need to add extra rules or modify some converted rules.
+##不常用          
+`-l gfwlist.txt` 使用本地gfwlist.txt(必须为原始base64压缩格式)          
+`-o -` 输出到STDOUT     
+`-i -` 不生成ipset规则 
 
-Using:
------
-
-Modify gfwlist2dnsmasq.py:
-
-Change this to your DNS server IP&port:
-```python
-mydnsip = '127.0.0.1'
-mydnsport = '5353'
-```
-
-Change this to your ipset name:
-```python
-ipsetname = 'gfwlist'
-```
-
-Path to save you rule file:
-```python
-rulefile = './dnsmasq_list.conf'
-```
-
-Add your own extra domain here. One domain in a line. eg:
-```python
-EX_DOMAIN=[ \
-'.google.com', \
-'.google.com.hk', \
-'.google.com.tw', \
-'.google.com.sg', \
-'.google.co.jp', \
-'.google.co.kr', \
-'.blogspot.com', \
-'.blogspot.sg', \
-'.blogspot.hk', \
-'.blogspot.jp', \
-'.blogspot.kr', \
-'.gvt1.com', \
-'.gvt2.com', \
-'.gvt3.com', \
-'.1e100.net', \
-'.blogspot.tw' \
-]
-```
-Then run gfwlist2dnsmasq.py:
-```bash
-python gfwlist2dnsmasq.py
-```
-If you don't want to generate the rules by yourself, you can download the rule file from:
-
-https://github.com/cokebar/gfwlist2dnsmasq/releases
-
-Known bugs:
------
-1. Invalid lines at the beginning of the list (This script only do with domain address, but gfwlist contains IP addresses):
-```
-server=/.85.17.73.31/127.0.0.1#5353
-ipset=/.85.17.73.31/gfwlist
-```
-How to fix: just delete these lines.
+##感谢
+9成代码复制以下项目，还有1成来自google。。。           
+[https://github.com/JinnLynn/genpac](https://github.com/JinnLynn/genpac)             
+[https://github.com/cokebar/gfwlist2dnsmasq](https://github.com/cokebar/gfwlist2dnsmasq)                     
